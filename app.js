@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const shortid = require("shortid");
 
 const User = require("./models/user.js");
-const Exercise = require(".models/exercise.js");
+const Exercise = require("./models/exercise.js");
 const middleware = require("./middleware/index.js");
 
 const mongoose = require("mongoose");

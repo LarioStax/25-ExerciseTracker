@@ -3,6 +3,8 @@ const app = express();
 const bodyParser = require("body-parser");
 const shortid = require("shortid");
 
+const User = require("./models/user.js");
+
 const mongoose = require("mongoose");
 
 mongoose.connect("mongodb://localhost/exercise_tracker",

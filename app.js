@@ -42,22 +42,6 @@ app.post("/api/exercise/new-user", middleware.checkUsername, function(req, res) 
 	});
 });
 
-// let exerciseSchema = new mongoose.Schema({
-// 	description: String,
-// 	duration: Number,
-// 	date: {
-// 		type: Date,
-// 		default: Date.now,
-// 	},
-// 	user: {
-// 		id: {
-// 			type: mongoose.Schema.Types.ObjectId,
-// 			ref: "User"
-// 		},
-// 		username: String,
-// 	}
-// });
-
 app.post("/api/exercise/add", function(req, res) {
 	//find user by id
 	User.findById(req.body.userId, function(err, foundUser) {
@@ -97,40 +81,6 @@ app.post("/api/exercise/add", function(req, res) {
 		}
 	});
 });
-
-// //Comments Create
-// router.post("/", middleware.isLoggedIn, function(req, res) {
-// 	//find campground by id
-// 	Campground.findById(req.params.id, function(err, campground) {
-// 		if (err) {
-// 			req.flash("error", "Campground not found.")
-// 			console.log(err);
-// 		} else {
-// 			//create new comment
-// 			Comment.create(req.body.comment, function(err, comment) {
-// 				if (err) {
-// 					req.flash("error", "Something went wrong.")
-// 					console.log(err);
-// 				} else {
-// 					//add username and ID to comment
-// 					comment.author.id = req.user._id;
-// 					comment.author.username = req.user.username;
-// 					comment.save();
-// 					//connect new comment to campground
-// 					campground.comments.push(comment);
-// 					campground.save();
-// 					console.log(comment);
-// 					//redirect to showpage of said campground
-// 					req.flash("success", "Successfully added a new comment.")
-// 					res.redirect("/campgrounds/" + campground._id);
-// 				}
-// 			})
-
-// 		}
-// 	})
-// });
-
-
 
 let port = process.env.PORT || 3000;
 

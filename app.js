@@ -42,6 +42,17 @@ app.post("/api/exercise/new-user", middleware.checkUsername, function(req, res) 
 	});
 });
 
+app.get("/api/exercise/users", function(req, res) {
+	User.find({}, function(err, foundUsers) {
+		if (err) {
+			console.log(err);
+		} else {
+			let tempArr = foundUsers.map(({username, _id}) => ({username, _id}))
+			res.json(tempArr);
+		}
+	});
+});
+
 app.post("/api/exercise/add", function(req, res) {
 	//find user by id
 	User.findById(req.body.userId, function(err, foundUser) {

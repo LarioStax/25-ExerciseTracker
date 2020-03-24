@@ -27,12 +27,20 @@ app.get("/", function (req, res) {
 
 app.post("/api/exercise/new-user", function(req, res) {
 	//create new user and generate a new id for said user
+	let newUser = {
+		username: req.body.username,
+		shortId: shortid.generate()
+	}
 	//save user to the DB
-	//return json with username and shortid
-
-	console.log(req.body.username);
-	res.send("Post route reached. Send it to DB");
-})
+	User.create(newUser, function(err, createdUser) {
+		if (err) {
+			console.log(err);
+		} else {
+			//return json with username, id and shortid
+			res.json({"username": createdUser.username, "_id": createdUser._id, "shortId": createdUser.shortId});
+		}
+	});
+});
 
 
 let port = process.env.PORT || 3000;

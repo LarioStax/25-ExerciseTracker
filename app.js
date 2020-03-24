@@ -95,8 +95,12 @@ app.post("/api/exercise/add", function(req, res) {
 	});
 });
 
+// http://localhost:3000/api/exercise/log?userId=5e7a3a3d1abe9a210c057570&from=2020-03-24&to=2020-03-25&limit=7
 app.get("/api/exercise/log", function(req, res) {
 	let userId = req.query.userId;
+	let from = req.query.from || "";
+	let to = req.query.to || "";
+	let limit = req.query.limit || "";
 	User.findById(req.body.userId, function(err, foundUser) {
 		if (err) {
 			console.log(err);
@@ -106,6 +110,17 @@ app.get("/api/exercise/log", function(req, res) {
 					console.log(err);
 				} else {
 					let tempArr = foundExercises.map(({description, duration, date}) => ({description, duration, date}))
+					if (from) {
+						let temp = new Date(Date.parse(from));
+						tempArr = tempArr.filter( (exercise) => exercise.date > temp);
+					} if (to) {
+						let temp = new Date(Date.parse(to));
+						tempArr = tempArr.filter( (exercise) => exercise.date < temp);
+					} if (limit) {
+						tempArr.splice(limit)
+					} if (tempArr.length === 0) {
+						res.json({"Info": "No exercises found with these limitations."})
+					}
 					res.json(tempArr);
 				}
 			})

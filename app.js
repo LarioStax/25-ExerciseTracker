@@ -42,11 +42,13 @@ app.post("/api/exercise/new-user", middleware.checkUsername, function(req, res) 
 	});
 });
 
+//get a list of all users
 app.get("/api/exercise/users", function(req, res) {
 	User.find({}, function(err, foundUsers) {
 		if (err) {
 			console.log(err);
 		} else {
+			//only show username and id properties (destructuring!)
 			let tempArr = foundUsers.map(({username, _id}) => ({username, _id}))
 			res.json(tempArr);
 		}
@@ -92,6 +94,24 @@ app.post("/api/exercise/add", function(req, res) {
 		}
 	});
 });
+
+app.get("/api/exercise/log", function(req, res) {
+	let userId = req.query.userId;
+	User.findById(req.body.userId, function(err, foundUser) {
+		if (err) {
+			console.log(err);
+		} else {
+			Exercise.find({}, function(err, foundExercises) {
+				if (err) {
+					console.log(err);
+				} else {
+					let tempArr = foundExercises.map(({description, duration, date}) => ({description, duration, date}))
+					res.json(tempArr);
+				}
+			})
+		}
+	})
+})
 
 let port = process.env.PORT || 3000;
 

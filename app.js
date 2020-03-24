@@ -21,6 +21,17 @@ app.get("/", function (req, res) {
 	res.sendFile(__dirname + "/views/index.html");
 })
 
+
+app.post("/api/exercise/new-user", function(req, res) {
+	//create new user and generate a new id for said user
+	//save user to the DB
+	//return json with username and shortid
+
+	console.log(req.body.username);
+	res.send("Post route reached. Send it to DB");
+})
+
+
 let port = process.env.PORT || 3000;
 
 app.listen(port, function() {

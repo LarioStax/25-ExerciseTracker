@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const shortid = require("shortid");
 
 const User = require("./models/user.js");
+const middleware = require("./middleware/index.js");
 
 const mongoose = require("mongoose");
 
@@ -24,8 +25,7 @@ app.get("/", function (req, res) {
 	res.sendFile(__dirname + "/views/index.html");
 })
 
-
-app.post("/api/exercise/new-user", function(req, res) {
+app.post("/api/exercise/new-user", middleware.checkUsername, function(req, res) {
 	//create new user and generate a new id for said user
 	let newUser = {
 		username: req.body.username,
@@ -41,6 +41,7 @@ app.post("/api/exercise/new-user", function(req, res) {
 		}
 	});
 });
+
 
 
 let port = process.env.PORT || 3000;

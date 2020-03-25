@@ -131,6 +131,15 @@ app.get("/api/exercise/log", function(req, res) {
 	})
 })
 
+//*************************************************************
+//*** ADDITIONAL THINGS TO CODE IN
+//*** - Index - Add exercise with username instead of id
+//*** - Index - Add search form to search for exercises of specific users (you have to type it in url now)
+//*** - Refactor the code, put routes in separate file
+//*** - Make a copy of project and use correct RESTful routing conventions, not what FCC wants you to do
+//*** - 
+//*************************************************************
+
 
 // // Not found middleware
 // app.use((req, res, next) => {
